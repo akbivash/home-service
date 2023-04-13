@@ -1,3 +1,5 @@
+import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 
 const Home = () => {
@@ -7,10 +9,10 @@ const Home = () => {
 <h1 className='text-4xl md:text-8xl font-bold'>Find a Home</h1>
 <h1 className=' text-4xl md:text-8xl font-bold'>You'll Love</h1>
 <span>Discover a Place You'll Love to Live</span>
-<button className='bg-teal-600 px-10 py-2 rounded-sm'>Explore</button>
+<Link href='/search' className='bg-teal-600 px-10 py-2 rounded-sm'>Explore</Link>
       </div>
 
-<img src="https://cdn.wallpapersafari.com/27/74/XtkN6u.jpg" alt="" className='w-full object-cover h-[90vh]' />
+<Image src="https://cdn.wallpapersafari.com/27/74/XtkN6u.jpg" alt="" className=' object-cover' fill/>
   <div className='w-full absolute bg-[rgba(0,0,0,0.5)] top-0 left-0 h-[90vh]'></div>
      </div>
   )

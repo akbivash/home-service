@@ -10,10 +10,12 @@ import SquareFootIcon from '@mui/icons-material/SquareFoot';
 const Property = ({property}:any) => {
   return (
     <>
-  <div className='grid  '>
+  <div className='grid  py-2 '>
   <Link href={`/property/${property.id}`}>
-  <img src={`${property.coverPhoto.url}`}  alt='photo'  className='w-full h-[300px] object-cover' />
-    </Link>
+  <div className='h-[250px] relative '>
+  <Image src={`${property.coverPhoto.url}`} loading='lazy'  alt='photo'   fill style={{objectFit:'cover'} }/>
+  </div>
+   
     <div className='flex justify-between items-center p-2'>
     <span className=' '>
       AED {property.price }{property.rentFrequency && `/${property.rentFrequency}`}
@@ -24,6 +26,7 @@ const Property = ({property}:any) => {
   {property.rooms} <SingleBedIcon/> | {property.baths} <ShowerIcon/> | {Math.floor(property.area)} sqft <SquareFootIcon/>
 </span>
   <span>{property.title.length > 30 ? `${property.title.slice(0,30)}...` : property.title}</span>
+  </Link>
   </div>
     </>
   )

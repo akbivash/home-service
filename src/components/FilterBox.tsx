@@ -1,14 +1,26 @@
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 
 const FilterBox = ({ filterBox }: any) => {
-  function handleChange() {}
+  const router = useRouter()
+
+  function handleFilter(filters:any) {
+  const values = getFilterValues(filters)
+  const{query} = router
+const path = router.pathname
+  values.forEach(v => {
+    query[v.name] = v.value
+  })
+  router.push({pathname:path, query})
+  }
+
   return (
     <>
       <div
         className={`${
           filterBox
             ? "transition-all duration-400 z-10 mx-2 translate-y-0 pt-20 pb-2   justify-center  flex flex-wrap  gap-2  relative "
-            : " flex flex-wrap justify-center gap-2 transition-all duration-400 overflow-hidden h-10 translate-y-[-120%]      relative "
+            : " flex flex-wrap justify-center gap-2 transition-all duration-400 overflow-hidden h-0 translate-y-[-120%]      relative "
         }`}
       >
         {filterData.map((filter) => {
@@ -19,21 +31,19 @@ const FilterBox = ({ filterBox }: any) => {
             >
               <select
                 className="outline-none p-1"
-                value={filter.queryName ? filter.queryName : ""}
-                onChange={handleChange}
+                onChange={(e) => handleFilter({[filter.queryName]:e.target.value})}
               >
                 <option value="" className="">
-                  {filter.queryName}
+                  {filter.placeholder}
                 </option>
                 {filter.items.map((item) => {
                   return (
                     <option
                       value={item.value}
                       key={item.value}
-                      defaultValue={filter.queryName}
                       className="border-none "
                     >
-                      {item.value}
+                      {item.name}
                     </option>
                   );
                 })}
@@ -184,61 +194,62 @@ export const filterData = [
   },
 ];
 
-//   export const getFilterValues = (filterValues) => {
-//     const {
-//       purpose,
-//       rentFrequency,
-//       categoryExternalID,
-//       minPrice,
-//       maxPrice,
-//       areaMax,
-//       roomsMin,
-//       bathsMin,
-//       sort,
-//       locationExternalIDs,
-//     } = filterValues;
+  export const getFilterValues = (filterValues:any) => {
+    const {
+      purpose,
+      rentFrequency,
+      categoryExternalID,
+      minPrice,
+      maxPrice,
+      areaMax,
+      roomsMin,
+      bathsMin,
+      sort,
+      furnishingStatus,
+    } = filterValues;
 
-//     const values = [
-//       {
-//         name: 'purpose',
-//         value: purpose,
-//       },
-//       {
-//         name: 'rentFrequency',
-//         value: rentFrequency,
-//       },
-//       {
-//         name: 'minPrice',
-//         value: minPrice,
-//       },
-//       {
-//         name: 'maxPrice',
-//         value: maxPrice,
-//       },
-//       {
-//         name: 'areaMax',
-//         value: areaMax,
-//       },
-//       {
-//         name: 'roomsMin',
-//         value: roomsMin,
-//       },
-//       {
-//         name: 'bathsMin',
-//         value: bathsMin,
-//       },
-//       {
-//         name: 'sort',
-//         value: sort,
-//       },
-//       {
-//         name: 'locationExternalIDs',
-//         value: locationExternalIDs,
-//       },
-//       {
-//         name: 'categoryExternalID',
-//         value: categoryExternalID,
-//       },
-//     ];
+    const values = [
+      {
+        name: 'purpose',
+        value: purpose,
+      },
+      {
+        name: 'rentFrequency',
+        value: rentFrequency,
+      },
+      {
+        name: 'minPrice',
+        value: minPrice,
+      },
+      {
+        name: 'maxPrice',
+        value: maxPrice,
+      },
+      {
+        name: 'areaMax',
+        value: areaMax,
+      },
+      {
+        name: 'roomsMin',
+        value: roomsMin,
+      },
+      {
+        name: 'bathsMin',
+        value: bathsMin,
+      },
+      {
+        name: 'sort',
+        value: sort,
+      },
+      {
+        name: 'furnishingStatus',
+        value: furnishingStatus,
+      },
+      {
+        name: 'categoryExternalID',
+        value: categoryExternalID,
+      },
+    ];
 
-//     return values;
+    return values
+  }
